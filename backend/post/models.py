@@ -6,12 +6,12 @@ from groups.models import Group
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
-    description = models.TextField(max_length=2000)
+    description = models.TextField(max_length=2000, null=True)
     latitude = models.DecimalField(max_digits=9, decimal_places=6)
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
-    slug = models.SlugField(max_length=100)
+    slug = models.SlugField(max_length=100, null=True)
 
-    group = models.ForeignKey(Group, on_delete=models.PROTECT, related_name='posts')
+    group = models.ForeignKey(Group, on_delete=models.PROTECT, related_name='posts', null=True)
 
     class Meta:
         verbose_name = 'post'

@@ -7,6 +7,8 @@ from account.managers import CustomUserManager
 
 class CustomUser(AbstractUser):
     username = None
+    id = models.IntegerField(primary_key=True, auto_created=True)
+    first_name = models.CharField(max_length=100, null=False)
     email = models.EmailField(_("email address"), unique=True)
 
     USERNAME_FIELD = "email"
