@@ -7,25 +7,6 @@ from django.utils.text import slugify
 from account.models import CustomUser
 
 
-class Tag(models.Model):
-    title = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=100, null=True)
-
-    class Meta:
-        verbose_name = 'tag'
-        verbose_name_plural = 'tags'
-        ordering = ['title']
-
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
-        super(Tag, self).save(*args, **kwargs)
-    
-
-    def __str__(self) -> str:
-        return self.title
-
-
 color_re = re.compile('^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$')
 validate_color = RegexValidator(color_re, 'Enter a valid color')
 
@@ -35,7 +16,6 @@ class Group(models.Model):
     hex_color = models.CharField(max_length=7, validators=[validate_color], null=True, default='#4d10bd')
     slug = models.SlugField(max_length=100, unique=True, null=True)
 
-    tags = models.ManyToManyField(Tag, related_name='groups')
     user = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name='user_groups')    
 
     

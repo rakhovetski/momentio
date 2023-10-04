@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group as DjangoGroup
 
-from groups.models import Group, Tag
+from groups.models import Group
 from post.models import Post
 
 
@@ -13,24 +13,8 @@ class PostInline(admin.TabularInline):
     extra = 1
 
 
-class TagInline(admin.TabularInline):
-    model = Group.tags.through
-    extra = 1
-
-
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
     list_display = ['title', 'hex_color']
-    inlines = [TagInline, PostInline]
+    inlines = [PostInline, ]
 
-
-class GroupInline(admin.TabularInline):
-    model = Group.tags.through
-    extra = 1
-
-
-@admin.register(Tag)
-class TagAdmin(admin.ModelAdmin):
-    list_display = ['title',]
-    list_filter = ['title',]
-    inlines = [GroupInline, ]
