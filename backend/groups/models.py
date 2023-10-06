@@ -13,7 +13,7 @@ validate_color = RegexValidator(color_re, 'Enter a valid color')
 
 class Group(models.Model):
     title = models.CharField(max_length=100)
-    hex_color = models.CharField(max_length=7, validators=[validate_color], null=True, default='#4d10bd')
+    hex_color = models.CharField(max_length=7, validators=[validate_color], null=True, blank=True, default='#4d10bd')
     slug = models.SlugField(max_length=100, unique=True, null=True)
 
     user = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name='user_groups')    
